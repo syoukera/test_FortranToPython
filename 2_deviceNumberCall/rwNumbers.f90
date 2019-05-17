@@ -1,15 +1,16 @@
-subroutine test()
+subroutine rwNumbers(readDN, writeDN)
     implicit none
     real,dimension(30)::numbers
     real temp
     integer i, j
+    integer readDN 
+    integer writeDN
 
-    open(10 , file='numbers.txt', status='old')
-    open(11 , file='sortedNumbers.txt', status='replace')
+    call openFiles(readDN, writeDN)
 
     ! read numbers
     do i = 1, 30
-        read(10, *) numbers(i)
+        read(readDN, *) numbers(i)
     end do
     close(10)
 
@@ -27,6 +28,13 @@ subroutine test()
     ! print numbers
     print *, "Sorted numbers is written in sortedNumbers.txt"
     do i=1, 30
-        write(11,*) numbers(i)
+        write(writeDN,*) numbers(i)
     end do
-end subroutine test
+end subroutine
+
+subroutine openFiles(readDN, writeDN)
+    implicit none
+    integer readDN, writeDN
+    open(readDN , file='numbers.txt', status='old')
+    open(writeDN , file='sortedNumbers.txt', status='replace')
+end subroutine
