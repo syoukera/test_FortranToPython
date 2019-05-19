@@ -6,8 +6,6 @@ subroutine rwNumbers(readDN, writeDN)
     integer readDN 
     integer writeDN
 
-    call openFiles(readDN, writeDN)
-
     ! read numbers
     do i = 1, 30
         read(readDN, *) numbers(i)
@@ -34,7 +32,17 @@ end subroutine
 
 subroutine openFiles(readDN, writeDN)
     implicit none
-    integer readDN, writeDN
+    integer(4),intent(in) :: readDN
+    integer(4),intent(in) :: writeDN
+
+    print *, "Open files from fortran"
     open(readDN , file='numbers.txt', status='old')
     open(writeDN , file='sortedNumbers.txt', status='replace')
+end subroutine
+
+subroutine closeFiles(readDN, writeDN)
+    implicit none
+    integer readDN, writeDN
+    close(readDN)
+    close(writeDN)
 end subroutine
